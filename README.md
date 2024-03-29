@@ -1,6 +1,6 @@
 # GSoC-2024-Proposal-Improve-the-Database-Cache-Backend
 ## Table of Contents
-1. Abstract
+1. Abstract (Existing problem, Goals, Benefit)
 2. High level diagram
 3. Low level
 4. Task breakdown
@@ -12,20 +12,23 @@ Django-Mysql has good DatabaseCache, but, the existing problem with the Django-M
 Developers using databases other than MySQL may face challenges in integrating and optimizing caching solutions within their Django applications. Supporting caching across multiple database backends requires rigorous testing and maintenance to ensure compatibility, performance, and reliability.
 
 ### 1.2	Goals
-First of all, we need to understanding Django-MySQL features. Do the research and document the specific features, such as approx_count(), _clone(), count_tries_approx(), and other relevant methods or functionalities. And determine how these features interact with MySQL database, and how they can be utilized for caching purposes. Then we will design the interface that abstracts these features, and then translate the interface to different database dialects, such as PostgreSQL, SQLite, Oracle, etc. Adapt the interface and implementation to utilize the specific features and capabilities offered by each database backend. Then develop separate Django cache backends for each supported database backend, incorporating the translated caching functionalities. And conduct comprehensive testing to ensure that the caching functionalities work as expected across different database backends. Finally, document the usage and configuration of the caching solution, provide examples, practices, and troubleshooting guidelines to assist developers in effectively utilizing the caching features within their projects.
+First of all, we need to understanding Django-MySQL features. Do the research and document the specific features, such as approx_count(), _clone(), count_tries_approx(), and other relevant methods or functionalities. And determine how these features interact with MySQL database, and how they can be utilized for caching purposes.\
+Then we will design the interface that abstracts these features, and then translate the interface to different database dialects, such as PostgreSQL, SQLite, Oracle, etc. Adapt the interface and implementation to utilize the specific features and capabilities offered by each database backend.\
+Then develop separate Django cache backends for each supported database backend, incorporating the translated caching functionalities. And conduct comprehensive testing to ensure that the caching functionalities work as expected across different database backends.\
+Finally, document the usage and configuration of the caching solution, provide examples, practices, and troubleshooting guidelines to assist developers in effectively utilizing the caching features within their projects.
 
 ### 1.3	Benefit
 Implementing a cache backend in Django for all databases can improve performance and scalability in various scenarios. Because it can reduce the load on the database server, which can lead to faster response time and optimize the performance. And this can also improve user experience. And reducing the load on the database server may resulting cost saving.
 
 
 ## 2. High level diagram
+<img width="523" alt="high level diagram" src="https://github.com/Mei0707/GSoC-2024-Proposal-Improve-the-Database-Cache-Backend/assets/122386303/e60b7ef8-8821-45b6-9b49-6a41ba6bdee5">
 
-<img width="565" alt="截屏2024-03-29 12 35 34" src="https://github.com/Mei0707/GSoC-2024-Proposal-Improve-the-Database-Cache-Backend/assets/122386303/d161623c-f461-489e-9a5c-52ee6d81f68e">
 
 ## 3. Low level
-Identify Equivalent Functionality: Research the features and capabilities of PostgreSQL, or Oracle that similar to the features provided by ‘django-mysql’.
-Implement Database Specific Functionality: Write database-specific implementations for the features provided by django-mysql. This may involve writing custom SQL queries or using specific database functions provided by PostgreSQL or Oracle.
-Conditional Logic in Code: In your Django project, conditionally execute the appropriate database-specific functionality based on the database backend being used. Django provides a settings.DATABASES setting that specifies the configuration for each database connection. You can inspect this setting to determine the database backend being used and execute the corresponding code.
+Identify Equivalent Functionality: Research the features and capabilities of PostgreSQL, or Oracle that similar to the features provided by ‘django-mysql’.\
+Implement Database Specific Functionality: Write database-specific implementations for the features provided by django-mysql. This may involve writing custom SQL queries or using specific database functions provided by PostgreSQL or Oracle.\
+Conditional Logic in Code: In your Django project, conditionally execute the appropriate database-specific functionality based on the database backend being used. Django provides a settings.DATABASES setting that specifies the configuration for each database connection. You can inspect this setting to determine the database backend being used and execute the corresponding code.\
 Testing and Validation: Thoroughly test your implementation to ensure that it works correctly with different database backends. Pay attention to performance considerations and ensure that the translated features behave consistently across different database systems.\
 **Here is an example of how it works:**\
 **This is the approx_count function in django_mysql library:**
@@ -73,7 +76,7 @@ def approx_count(queryset):
 ```
 
 ## 4. Task breakdown 
-My summer break will start in the beginning of May, and end in the end of August. But, I’m thinking to take one summer class. Just one, so it won’t take me a long time to take the class, and complete the assignments. So, I will have plenty of time to studying and doing this project, especially in the weekdays. 
+My summer break will start in the beginning of May, and end in the end of August. But, I’m thinking to take one summer class. Just one, so it won’t take me a long time to take the class, and complete the assignments. So, I will have plenty of time to studying and doing this project, especially in the weekdays. \
 Before coding, I will do the research and learn the Django-mysql library. Get familiar with Django and its features. Then define the scope and requirements for this project, and go through the timelines.
 
 ### Week 1-2: Understanding Django-mysql Features
