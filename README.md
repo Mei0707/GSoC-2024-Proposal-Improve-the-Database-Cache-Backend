@@ -1,7 +1,7 @@
 # GSoC-2024-Proposal-Improve-the-Database-Cache-Backend
-1.	Abstract
+## 1.	Abstract
 1.1 Existing problem
-Django-Mysql has g good DatabaseCache, but, the existing problem with the Django-MySQL DatabaseCache implementation lies in its lack of compatibility with other database backends due to differences in SQL dialects and specific features offered by each database.
+Django-Mysql has **good** DatabaseCache, but, the existing problem with the Django-MySQL DatabaseCache implementation lies in its lack of compatibility with other database backends due to differences in SQL dialects and specific features offered by each database.
 Developers using databases other than MySQL may face challenges in integrating and optimizing caching solutions within their Django applications. Supporting caching across multiple database backends requires rigorous testing and maintenance to ensure compatibility, performance, and reliability.
 
 1.2	Goals
@@ -11,7 +11,7 @@ First of all, we need to understanding Django-MySQL features. Do the research an
 Implementing a cache backend in Django for all databases can improve performance and scalability in various scenarios. Because it can reduce the load on the database server, which can lead to faster response time and optimize the performance. And this can also improve user experience. And reducing the load on the database server may resulting cost saving.
 
 
-2.	High level diagram
+## 2.	High level diagram
 
 
 3.	Low level
@@ -19,6 +19,7 @@ Identify Equivalent Functionality: Research the features and capabilities of Pos
 Implement Database Specific Functionality: Write database-specific implementations for the features provided by django-mysql. This may involve writing custom SQL queries or using specific database functions provided by PostgreSQL or Oracle.
 Conditional Logic in Code: In your Django project, conditionally execute the appropriate database-specific functionality based on the database backend being used. Django provides a settings.DATABASES setting that specifies the configuration for each database connection. You can inspect this setting to determine the database backend being used and execute the corresponding code.
 Testing and Validation: Thoroughly test your implementation to ensure that it works correctly with different database backends. Pay attention to performance considerations and ensure that the translated features behave consistently across different database systems.
+```
 def approx_count(queryset):
     if connection.vendor == 'postgresql':
         # Implement PostgreSQL-specific approximate counting
@@ -29,7 +30,7 @@ def approx_count(queryset):
     else:
         # Fallback to regular count for other databases
         return queryset.count()
-  	
+```
 
 5.	Task breakdown 
 My summer break will start in the beginning of May, and end in the end of August. But, I’m thinking to take one summer class. Just one, so it won’t take me a long time to take the class, and complete the assignments. So, I will have plenty of time to studying and doing this project, especially in the weekdays. 
