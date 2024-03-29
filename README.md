@@ -1,5 +1,5 @@
 # GSoC-2024-Proposal-Improve-the-Database-Cache-Backend
-## Table of Content
+## Table of Contents
 1. Abstract
 2. High level diagram
 3. Low level
@@ -8,7 +8,7 @@
 6. About me
 ## 1. Abstract
 ### 1.1 Existing problem
-Django-Mysql has **good** DatabaseCache, but, the existing problem with the Django-MySQL DatabaseCache implementation lies in its lack of compatibility with other database backends due to differences in SQL dialects and specific features offered by each database.
+Django-Mysql has good DatabaseCache, but, the existing problem with the Django-MySQL DatabaseCache implementation lies in its lack of compatibility with other database backends due to differences in SQL dialects and specific features offered by each database.
 Developers using databases other than MySQL may face challenges in integrating and optimizing caching solutions within their Django applications. Supporting caching across multiple database backends requires rigorous testing and maintenance to ensure compatibility, performance, and reliability.
 
 ### 1.2	Goals
@@ -20,20 +20,53 @@ Implementing a cache backend in Django for all databases can improve performance
 
 ## 2. High level diagram
 
+<img width="565" alt="截屏2024-03-29 12 35 34" src="https://github.com/Mei0707/GSoC-2024-Proposal-Improve-the-Database-Cache-Backend/assets/122386303/d161623c-f461-489e-9a5c-52ee6d81f68e">
 
 ## 3. Low level
 Identify Equivalent Functionality: Research the features and capabilities of PostgreSQL, or Oracle that similar to the features provided by ‘django-mysql’.
 Implement Database Specific Functionality: Write database-specific implementations for the features provided by django-mysql. This may involve writing custom SQL queries or using specific database functions provided by PostgreSQL or Oracle.
 Conditional Logic in Code: In your Django project, conditionally execute the appropriate database-specific functionality based on the database backend being used. Django provides a settings.DATABASES setting that specifies the configuration for each database connection. You can inspect this setting to determine the database backend being used and execute the corresponding code.
-Testing and Validation: Thoroughly test your implementation to ensure that it works correctly with different database backends. Pay attention to performance considerations and ensure that the translated features behave consistently across different database systems.
+Testing and Validation: Thoroughly test your implementation to ensure that it works correctly with different database backends. Pay attention to performance considerations and ensure that the translated features behave consistently across different database systems.\
+**Here is an example of how it works:**\
+**This is the approx_count function in django_mysql library:**
+```
+def approx_count(
+        self,
+        fall_back: bool = True,
+        return_approx_int: bool = True,
+        min_size: int = 1000,
+    ) -> int:
+        try:
+            num = approx_count(self)
+        except ValueError:  # Cannot be approx-counted
+            if not fall_back:
+                raise ValueError("Cannot use approx_count on this queryset.")
+            # Always fall through to super class
+            return super().count()
+
+        if min_size and num < min_size:
+            # Always fall through to super class
+            return super().count()
+
+        if return_approx_int:
+            return ApproximateInt(num)
+        else:
+            return num
+```
+**Then translate it to PostgreSQL and Oracle:**
 ```
 def approx_count(queryset):
     if connection.vendor == 'postgresql':
-        # Implement PostgreSQL-specific approximate counting
-        return queryset.annotate(count=Count('*')).count()
+        query = queryset.annotate(count=Count('*')).values('count').first()
+        if query:
+            return query['count'] if query['count'] is not None else 0
+        else:
+            return 0
     elif connection.vendor == 'oracle':
-        # Implement Oracle-specific approximate counting
-        pass
+        cursor = connection.cursor()
+        cursor.excute("SELECT COUNT(*) FROM (SELECT 1 FROM {} SAMPLE(10) WHERE ROWNUM <= 100000".format(queryset.model._meta.db_table))
+        result = cursor.fetchone()
+        return result[0] if result else 0
     else:
         # Fallback to regular count for other databases
         return queryset.count()
@@ -79,5 +112,10 @@ Before coding, I will do the research and learn the Django-mysql library. Get fa
 •	Deliver the completed caching solution to stakeholders.
 
 ## 5. Reference
+* https://adamj.eu/tech/2015/05/17/building-a-better-databasecache-for-django-on-mysql/
+* https://github.com/django/django
+* https://github.com/adamchainz/django-mysql/tree/dbf40498931f2dee0cb3c20015e945ad71573c1d
+
 ## 6. About Me
-My name is Qiaowen Mei, and I’m a student in Northeastern University(San Jose). I’m in UTC-7 time zone. I started use Python to programming for 1.5 years. I also program in Java, C, C++.
+My name is Qiaowen Mei, and I’m a student in Northeastern University(San Jose). I’m in UTC-7 time zone. I started use Python to programming for 1.5 years. I also program in Java, C, C++.\
+My email is <u>mqiowen@gmail.com</u> . Welcome to reach me if you have any questions.
