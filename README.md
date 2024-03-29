@@ -1,20 +1,27 @@
 # GSoC-2024-Proposal-Improve-the-Database-Cache-Backend
-## 1.	Abstract
-1.1 Existing problem
+## Table of Content
+1. Abstract
+2. High level diagram
+3. Low level
+4. Task breakdown
+5. Reference
+6. About me
+## 1. Abstract
+### 1.1 Existing problem
 Django-Mysql has **good** DatabaseCache, but, the existing problem with the Django-MySQL DatabaseCache implementation lies in its lack of compatibility with other database backends due to differences in SQL dialects and specific features offered by each database.
 Developers using databases other than MySQL may face challenges in integrating and optimizing caching solutions within their Django applications. Supporting caching across multiple database backends requires rigorous testing and maintenance to ensure compatibility, performance, and reliability.
 
-1.2	Goals
+### 1.2	Goals
 First of all, we need to understanding Django-MySQL features. Do the research and document the specific features, such as approx_count(), _clone(), count_tries_approx(), and other relevant methods or functionalities. And determine how these features interact with MySQL database, and how they can be utilized for caching purposes. Then we will design the interface that abstracts these features, and then translate the interface to different database dialects, such as PostgreSQL, SQLite, Oracle, etc. Adapt the interface and implementation to utilize the specific features and capabilities offered by each database backend. Then develop separate Django cache backends for each supported database backend, incorporating the translated caching functionalities. And conduct comprehensive testing to ensure that the caching functionalities work as expected across different database backends. Finally, document the usage and configuration of the caching solution, provide examples, practices, and troubleshooting guidelines to assist developers in effectively utilizing the caching features within their projects.
 
-1.3	Benefit
+### 1.3	Benefit
 Implementing a cache backend in Django for all databases can improve performance and scalability in various scenarios. Because it can reduce the load on the database server, which can lead to faster response time and optimize the performance. And this can also improve user experience. And reducing the load on the database server may resulting cost saving.
 
 
-## 2.	High level diagram
+## 2. High level diagram
 
 
-3.	Low level
+## 3. Low level
 Identify Equivalent Functionality: Research the features and capabilities of PostgreSQL, or Oracle that similar to the features provided by ‘django-mysql’.
 Implement Database Specific Functionality: Write database-specific implementations for the features provided by django-mysql. This may involve writing custom SQL queries or using specific database functions provided by PostgreSQL or Oracle.
 Conditional Logic in Code: In your Django project, conditionally execute the appropriate database-specific functionality based on the database backend being used. Django provides a settings.DATABASES setting that specifies the configuration for each database connection. You can inspect this setting to determine the database backend being used and execute the corresponding code.
@@ -32,45 +39,45 @@ def approx_count(queryset):
         return queryset.count()
 ```
 
-5.	Task breakdown 
+## 4. Task breakdown 
 My summer break will start in the beginning of May, and end in the end of August. But, I’m thinking to take one summer class. Just one, so it won’t take me a long time to take the class, and complete the assignments. So, I will have plenty of time to studying and doing this project, especially in the weekdays. 
 Before coding, I will do the research and learn the Django-mysql library. Get familiar with Django and its features. Then define the scope and requirements for this project, and go through the timelines.
 
-Week 1-2: Understanding Django-mysql Features
-•	Research and document specific features of Django-mysql, such as approx_count(), _clone(), count_tries_approx(), and others.
+### Week 1-2: Understanding Django-mysql Features
+•	Research and document specific features of Django-mysql, such as approx_count(), _clone(), count_tries_approx(), and others.\
 •	Understand how these features interact with MySQL database and how they can be utilized for caching purposes.
 
-Week 3-4: Interface Design and Abstraction
-•	Design an abstracted interface that encapsulates caching functionalities provided by Django-mysql.
+### Week 3-4: Interface Design and Abstraction
+•	Design an abstracted interface that encapsulates caching functionalities provided by Django-mysql.\
 •	Determine how to translate these functionalities to different database dialects (PostgreSQL, SQLite, Oracle, etc.).
 
-Week 5-6: Translation to Different Database Dialects
-•	Adapt the interface and implementation to utilize specific features and capabilities offered by each database backend.
+### Week 5-6: Translation to Different Database Dialects
+•	Adapt the interface and implementation to utilize specific features and capabilities offered by each database backend.\
 •	Begin translating the caching functionalities to PostgreSQL dialect.
 
-Week 7-8: Translation to Different Database Dialects (Continued)
-•	Continue translating caching functionalities to SQLite and Oracle dialects.
+### Week 7-8: Translation to Different Database Dialects (Continued)
+•	Continue translating caching functionalities to SQLite and Oracle dialects.\
 •	Ensure compatibility and optimization for each database backend.
 
-Week 9-10: Development of Separate Cache Backends
-•	Develop separate Django cache backends for each supported database backend.
+### Week 9-10: Development of Separate Cache Backends
+•	Develop separate Django cache backends for each supported database backend.\
 •	Incorporate translated caching functionalities into respective cache backends.
 
-Week 11-12: Testing and Quality Assurance
-•	Conduct comprehensive testing to ensure caching functionalities work as expected across different database backends.
-•	Test for compatibility, performance, and reliability.
+### Week 11-12: Testing and Quality Assurance
+•	Conduct comprehensive testing to ensure caching functionalities work as expected across different database backends.\
+•	Test for compatibility, performance, and reliability.\
 •	Address any issues or bugs discovered during testing.
 
-Week 13-14: Documentation and Examples
-•	Document the usage and configuration of the caching solution.
-•	Provide examples, best practices, and troubleshooting guidelines to assist developers in effectively utilizing caching features within their projects.
+### Week 13-14: Documentation and Examples
+•	Document the usage and configuration of the caching solution.\
+•	Provide examples, best practices, and troubleshooting guidelines to assist developers in effectively utilizing caching features within their projects.\
 •	Prepare documentation for developers to refer to during implementation.
 
-Week 15: Final Review and Delivery
-•	Conduct a final review of the project to ensure all objectives have been met.
-•	Prepare the final deliverables, including code repositories, documentation, and any additional resources.
+### Week 15: Final Review and Delivery
+•	Conduct a final review of the project to ensure all objectives have been met.\
+•	Prepare the final deliverables, including code repositories, documentation, and any additional resources.\
 •	Deliver the completed caching solution to stakeholders.
 
-
-5.	About Me
+## 5. Reference
+## 6. About Me
 My name is Qiaowen Mei, and I’m a student in Northeastern University(San Jose). I’m in UTC-7 time zone. I started use Python to programming for 1.5 years. I also program in Java, C, C++.
