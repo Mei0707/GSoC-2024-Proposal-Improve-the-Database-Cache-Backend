@@ -38,8 +38,8 @@ Django App            approx_count()           Database
    |        Handling        |                       |
    |                        |                       |
    |  +--------------------+ v +-----------------+  |
-   |  | PostgreSQL Approx. |   | Oracle Approx. |  |
-   |  |   Count Logic      |   |  Count Logic   |  |
+   |  | PostgreSQL Approx. |   | Oracle Approx.  |  |
+   |  |   Count Logic      |   |  Count Logic    |  |
    |  +--------------------+   +-----------------+  |
    |                        |                       |
    |  +----------------------------------------+    |
@@ -155,4 +155,4 @@ Before coding, I will do the research and learn the Django-mysql library. Get fa
 
 ## 6. About Me
 My name is Qiaowen Mei, and I’m a student in Northeastern University(San Jose). I’m in UTC-7 time zone. I started use Python to programming for 1.5 years. I also program in Java, C, C++.\
-My email is <u>mqiowen@gmail.com</u> . Welcome to reach me if you have any questions.
+My email is <u>mqiowen@gmail.com</u> , and my Linkedin is https://www.linkedin.com/in/qiaowen-mei-267460233/. Welcome to reach me if you have any questions.
